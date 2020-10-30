@@ -28,20 +28,22 @@
         <!-- ADD todo -->
         <div class="box">
           <form action="/newtodo" method="POST">
-            <input id="inputId" class="toinput1" type="text" name="inputTask" placeholder="Add Your To-do Task ......">
+            <input id="inputID" class="toinput1" type="text" name="inputTask"  placeholder="Add Your To-do Task ......">
             <input class="toinput2" type="submit" name="" value="ADD">
           </form>
         </div>
         <!-- task -->
         <% for(var i = 0; i < todoList.length; i++) { %>
-        <div>
-          <input class="inp" id='label-<%= i + 1%>' type='checkbox'/>
-          <label for='label-<%= i + 1%>'>
-            <h2> <%= todoList[i].name %>
-              <span>Good luck in your task</span>
-            </h2>
-          </label>
-        </div>
+        <form action="../" method="POST">
+          <div>
+            <input class="inp" id='label-<%=i+1%>' name="checkbox" value="<%= todoList[i]._id %>" onchange="this.form.submit()" type='checkbox' />
+            <label for='label-<%= i + 1%>'>
+              <h2> <%= todoList[i].name %>
+                <span>Good luck in your task</span>
+              </h2>
+            </label>
+          </div>
+        </form>
         <% } %>
     </div>
 </body>

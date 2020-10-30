@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const objectId = require("mongoose").ObjectId;
+const { on } = require("nodemon");
 
 
 // mongoose connection
@@ -10,8 +12,9 @@ mongoose.connect("mongodb://localhost/todo", {useNewUrlParser: true, useUnifiedT
     if (err)
         console.error(err);
     else
-        console.log("Connected to the mongodb"); 
+        console.log("Connected to the mongodb");
 });
+mongoose.set('useFindAndModify', false);
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 // using app.use to serve up static CSS files in public/assets/ folder when /public link is called in ejs files
@@ -39,7 +42,7 @@ app.get("/", function(req, res) {
 //-------- Submit button route --------//
 
 app.post('/newtodo', function(req, res) {
-    if (req.body.inputTask == "") {
+    if (req.body.inputTask === "") {
         console.log("Type a task to add");
     }
     else
@@ -58,6 +61,25 @@ app.post('/newtodo', function(req, res) {
     }
 });
 
+app.post("/", function(req, res){
+    // console.log(req.body.checkbox);
+    const typeofCh = req.body.checkbox;
+    // app.put("todo", function (req, res) {
+    //     Todo.updateOne({typeofCheck: true}, typeofCh);
+    // });
+    
+    Todo.findByIdAndUpdate(
+        { _id: typeofCh },
+        { typeofCheck: true },
+        function(err, result) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.send(result);
+          }
+        }
+      );
+});
 
 app.get("*", function(req, res) {
     res.send("<h1> Invalid Page </h1>");

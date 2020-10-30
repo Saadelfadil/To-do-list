@@ -1,0 +1,6 @@
+todo_button = document.createElement("button");
+todo_button.setAttribute("onclick", "completeTodo(" + todo_id + ")");
+todo_button.innerHTML = todo;
+todo_cell.append(todo_button);
+row.append(todo_cell);
+table.append(row);
