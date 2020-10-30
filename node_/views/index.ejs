@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/assets/style.css">
+    <title>My To-Do List</title>
+</head>
+<style>
+  <% for(var i = 0; i < todoList.length; i++) { %>
+    #label-<%= i + 1%>:checked ~ label[for=label-<%= i + 1%> ]
+    {
+      background: #6d335c;
+      border-bottom: 1px solid #34495E;
+      color: #d37b79;
+    }
+    #label-<%= i + 1%>:checked ~ label[for=label-<%= i + 1%>]:before
+    {
+      background: url("https://i.imgur.com/eoPQ05r.png") no-repeat center center;
+    }
+  <% } %>
+</style>
+<body>
+    <div class="tasks">
+        <!-- title -->
+        <h1>To-Do List</h1>
+        <!-- ADD todo -->
+        <div class="box">
+          <form action="/newtodo" method="POST">
+            <input id="inputId" class="toinput1" type="text" name="inputTask" placeholder="Add Your To-do Task ......">
+            <input class="toinput2" type="submit" name="" value="ADD">
+          </form>
+        </div>
+        <!-- task -->
+        <% for(var i = 0; i < todoList.length; i++) { %>
+        <div>
+          <input class="inp" id='label-<%= i + 1%>' type='checkbox'/>
+          <label for='label-<%= i + 1%>'>
+            <h2> <%= todoList[i].name %>
+              <span>Good luck in your task</span>
+            </h2>
+          </label>
+        </div>
+        <% } %>
+    </div>
+</body>
+</html>
